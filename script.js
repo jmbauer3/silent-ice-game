@@ -11,13 +11,13 @@ window.onload = function() {
         startButton.addEventListener('click', () => {
             music.play();
             mainMenu.style.display = 'none';
-            document.body.style.backgroundColor = 'black';
+            document.body.style.backgroundImage = "url('assets/images/bubbles.png')";
         });
     });
 
-    // Ensure the button click turns the screen black
+    // Ensure the button click changes the background image
     startButton.addEventListener('click', () => {
         mainMenu.style.display = 'none';
-        document.body.style.backgroundColor = 'black';
+        document.body.style.backgroundImage = "url('assets/images/bubbles.png')";
     });
 }
