@@ -16,7 +16,7 @@ body, html {
     display: none;
 }
 
-#start-screen, #contact-form, #win-screen, #game-over-screen {
+#start-screen, #win-screen, #game-over-screen {
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -4,7 +4,6 @@ window.onload = function() {
 
     // DOM elements
     const startScreen = document.getElementById('start-screen');
-    const contactForm = document.getElementById('contact-form');
     const gameContainer = document.getElementById('game-container');
     const winScreen = document.getElementById('win-screen');
     const gameOverScreen = document.getElementById('game-over-screen');
@@ -12,8 +11,6 @@ window.onload = function() {
 
     // Buttons
     const startButton = document.getElementById('start-button');
-    const contactButton = document.getElementById('contact-button');
-    const backButton = document.getElementById('back-button');
     const playAgainWin = document.getElementById('play-again-win');
     const shareWin = document.getElementById('share-win');
     const playAgainGameOver = document.getElementById('play-again-game-over');
@@ -49,7 +46,6 @@ window.onload = function() {
         gameOver = false;
         monsterCaught = false;
         hideElement(startScreen);
-        hideElement(contactForm);
         hideElement(winScreen);
         hideElement(gameOverScreen);
         showElement(gameContainer);
@@ -103,14 +99,6 @@ window.onload = function() {
 
     // Event listeners
     startButton.addEventListener('click', startGame);
-    contactButton.addEventListener('click', () => {
-        hideElement(startScreen);
-        showElement(contactForm);
-    });
-    backButton.addEventListener('click', () => {
-        hideElement(contactForm);
-        showElement(startScreen);
-    });
     playAgainWin.addEventListener('click', startGame);
     playAgainGameOver.addEventListener('click', startGame);
 
