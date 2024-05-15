@@ -3,16 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silent Ice Game</title>
+    <title>Frozen Echoes</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-container">
+    <div id="start-screen">
+        <h1>Frozen Echoes</h1>
+        <button id="start-button">Dive</button>
+        <button id="contact-button">Contact</button>
+    </div>
+    
+    <div id="contact-form" class="hidden">
+        <h2>Contact Us</h2>
+        <form>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br><br>
+            <label for="comments">Comments:</label><br>
+            <textarea id="comments" name="comments" rows="4" cols="50"></textarea><br><br>
+            <input type="submit" value="Submit">
+            <button id="back-button">Back</button>
+        </form>
+    </div>
+
+    <div id="game-container" class="hidden">
         <canvas id="gameCanvas"></canvas>
     </div>
+
+    <div id="win-screen" class="hidden">
+        <h2>You Win!</h2>
+        <button id="play-again-win">Play Again</button>
+        <button id="share-win">Share with Friends</button>
+    </div>
+
+    <div id="game-over-screen" class="hidden">
+        <h2>Game Over</h2>
+        <button id="play-again-game-over">Play Again</button>
+        <button id="share-game-over">Share with Friends</button>
+    </div>
+    
     <audio id="backgroundMusic" loop>
-        <source src="assets/music/looping-music.mp3" type="audio/mpeg">
+        <source src="assets/music/Frozen Echoes.mp3" type="audio/mpeg">
     </audio>
+    
     <script src="script.js"></script>
 </body>
 </html>

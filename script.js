@@ -2,27 +2,75 @@ window.onload = function() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Set canvas size
-    canvas.width = window.innerWidth * 0.8;
-    canvas.height = window.innerHeight * 0.8;
-
-    // Background music
+    // DOM elements
+    const startScreen = document.getElementById('start-screen');
+    const contactForm = document.getElementById('contact-form');
+    const gameContainer = document.getElementById('game-container');
+    const winScreen = document.getElementById('win-screen');
+    const gameOverScreen = document.getElementById('game-over-screen');
     const music = document.getElementById('backgroundMusic');
-    music.volume = 0.2;
-    music.play();
+
+    // Buttons
+    const startButton = document.getElementById('start-button');
+    const contactButton = document.getElementById('contact-button');
+    const backButton = document.getElementById('back-button');
+    const playAgainWin = document.getElementById('play-again-win');
+    const shareWin = document.getElementById('share-win');
+    const playAgainGameOver = document.getElementById('play-again-game-over');
+    const shareGameOver = document.getElementById('share-game-over');
 
     // Game variables
     const iceColor = '#A9C9FF';
     const tensionNoiseColor = '#C1DFF0';
     let tensionLevel = 0;
+    let iceSamples = 0;
+    let oxygen = 100; // Oxygen level
+    let gameOver = false;
+    let monsterCaught = false;
 
-    // Function to draw the ice landscape
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.8;
+
+    music.volume = 0.2;
+    music.play();
+
+    function showElement(element) {
+        element.classList.remove('hidden');
+    }
+
+    function hideElement(element) {
+        element.classList.add('hidden');
+    }
+
+    function startGame() {
+        iceSamples = 0;
+        oxygen = 100;
+        tensionLevel = 0;
+        gameOver = false;
+        monsterCaught = false;
+        hideElement(startScreen);
+        hideElement(contactForm);
+        hideElement(winScreen);
+        hideElement(gameOverScreen);
+        showElement(gameContainer);
+        gameLoop();
+    }
+
+    function endGame(win) {
+        gameOver = true;
+        hideElement(gameContainer);
+        if (win) {
+            showElement(winScreen);
+        } else {
+            showElement(gameOverScreen);
+        }
+    }
+
     function drawIce() {
         ctx.fillStyle = iceColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Function to simulate tension (like fridge noise)
     function addTensionNoise() {
         ctx.fillStyle = tensionNoiseColor;
         for (let i = 0; i < tensionLevel; i++) {
@@ -32,19 +80,44 @@ window.onload = function() {
         }
     }
 
-    // Main game loop
     function gameLoop() {
+        if (gameOver) return;
+
         drawIce();
         addTensionNoise();
+
+        // Game logic
+        oxygen -= 0.1; // Decrease oxygen over time
+        if (oxygen <= 0 || monsterCaught) {
+            endGame(false);
+        } else if (iceSamples >= 10) {
+            endGame(true);
+        }
+
+        // Increase tension over time
+        tensionLevel += 1;
+        if (tensionLevel > 1000) tensionLevel = 1000;
+
         requestAnimationFrame(gameLoop);
     }
 
-    // Start the game loop
-    gameLoop();
+    // Event listeners
+    startButton.addEventListener('click', startGame);
+    contactButton.addEventListener('click', () => {
+        hideElement(startScreen);
+        showElement(contactForm);
+    });
+    backButton.addEventListener('click', () => {
+        hideElement(contactForm);
+        showElement(startScreen);
+    });
+    playAgainWin.addEventListener('click', startGame);
+    playAgainGameOver.addEventListener('click', startGame);
 
-    // Increase tension over time
-    setInterval(() => {
-        tensionLevel += 10;
-        if (tensionLevel > 1000) tensionLevel = 1000; // Cap the tension level
-    }, 1000);
+    shareWin.addEventListener('click', () => {
+        alert("Share this game with your friends!");
+    });
+    shareGameOver.addEventListener('click', () => {
+        alert("Share this game with your friends!");
+    });
 }
